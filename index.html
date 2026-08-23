@@ -26,7 +26,6 @@
         .nav .user-info .profile-link{color:rgba(255,255,255,0.7);font-size:14px;cursor:pointer;transition:color 0.2s}
         .nav .user-info .profile-link:hover{color:#ffd700}
         .nav .user-info .msg-bell{position:relative;cursor:pointer;font-size:18px;color:rgba(255,255,255,0.8);transition:color 0.2s;margin-left:6px}
-        .nav .user-info .msg-bell:hover{color:#ffd700}
         .nav .user-info .msg-bell .badge{position:absolute;top:-8px;right:-10px;background:#ffd700;color:#990000;font-size:11px;font-weight:700;padding:0 6px;border-radius:20px;min-width:18px;text-align:center;line-height:18px}
         #noticeBar{background:linear-gradient(90deg,#ffd700,#ffec8b,#ffd700);color:#990000;padding:8px 0;overflow:hidden;white-space:nowrap;position:sticky;top:52px;z-index:998;box-shadow:0 2px 8px rgba(0,0,0,0.1);border-bottom:2px solid #b8860b;display:none;font-weight:600}
         #noticeContent{display:inline-block;animation:scrollNotice 25s linear infinite;padding-left:100%}
@@ -118,7 +117,7 @@
         .profile-container .danger-zone .warning-text{color:#666;font-size:14px;margin-bottom:14px;background:#fff3cd;padding:12px 16px;border-radius:8px;border-left:4px solid #ffc107}
         .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center}
         .modal-overlay.show{display:flex}
-        .modal-box{background:white;border-radius:16px;padding:40px 36px;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);position:relative;animation:modalIn 0.3s ease}
+        .modal-box{background:white;border-radius:16px;padding:40px 36px;max-width:550px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);position:relative;animation:modalIn 0.3s ease;max-height:90vh;overflow-y:auto}
         @keyframes modalIn{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1}}
         .modal-box .close-modal{position:absolute;top:14px;right:20px;font-size:24px;cursor:pointer;color:#999;background:none;border:none}
         .modal-box .close-modal:hover{color:#333}
@@ -131,11 +130,14 @@
         .modal-box .form-container{display:block}
         .modal-box .form-container.hidden{display:none}
         .modal-box label{display:block;font-weight:600;margin:14px 0 4px;color:#333}
-        .modal-box input{width:100%;padding:12px 16px;border:2px solid #dce3ed;border-radius:8px;font-size:15px;outline:none;transition:border-color 0.25s}
-        .modal-box input:focus{border-color:#b30000}
+        .modal-box input,.modal-box textarea{width:100%;padding:12px 16px;border:2px solid #dce3ed;border-radius:8px;font-size:15px;outline:none;transition:border-color 0.25s;font-family:inherit}
+        .modal-box input:focus,.modal-box textarea:focus{border-color:#b30000}
+        .modal-box textarea{min-height:80px;resize:vertical}
         .modal-box .submit-btn{width:100%;padding:12px;background:linear-gradient(135deg,#b30000,#990000);color:white;border:none;border-radius:30px;font-size:18px;font-weight:700;cursor:pointer;margin-top:20px;transition:all 0.25s}
         .modal-box .submit-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(179,0,0,0.35)}
         .modal-box .error-msg{color:#cc0000;font-size:14px;text-align:center;margin-top:12px;display:none}
+        .modal-box .leadership-photo-preview{margin:10px 0;text-align:center}
+        .modal-box .leadership-photo-preview img{max-width:150px;max-height:150px;border-radius:8px;border:2px solid #ddd;object-fit:cover}
         .admin-panel{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
         .admin-card{background:white;border-radius:12px;padding:24px 28px;box-shadow:0 4px 20px rgba(0,0,0,0.06);border-top:4px solid #b30000}
         .admin-card h3{color:#990000;font-size:18px;margin-bottom:14px;border-bottom:2px solid #f0f0f0;padding-bottom:10px}
@@ -185,6 +187,8 @@
         .admin-card .admin-list-item .actions .approve-btn:hover{background:#d4edda}
         .admin-card .admin-list-item .actions .reject-btn{color:#dc3545}
         .admin-card .admin-list-item .actions .reject-btn:hover{background:#f8d7da}
+        .admin-card .admin-list-item .actions .edit-btn{color:#17a2b8}
+        .admin-card .admin-list-item .actions .edit-btn:hover{background:#e2f0f5}
         .admin-empty{color:#999;text-align:center;padding:20px 0}
         .user-manage-msg{padding:10px 16px;border-radius:6px;margin-bottom:12px;display:none;font-weight:600;border-left:4px solid transparent}
         .user-manage-msg.success{background:#d4edda;color:#155724;border-left-color:#28a745;display:block}
@@ -220,6 +224,12 @@
         #diagnostic-box.error{background:#f8d7da;color:#721c24;border-left-color:#dc3545;display:block}
         #diagnostic-box.success{background:#d4edda;color:#155724;border-left-color:#28a745;display:block}
         #diagnostic-box.info{background:#cce5ff;color:#004085;border-left-color:#007bff;display:block}
+        .leadership-member-card{background:#f8f9fa;padding:20px;border-radius:12px;border-left:4px solid #b30000;display:flex;flex-direction:column;gap:8px}
+        .leadership-member-card .member-photo{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #b30000;margin-bottom:8px}
+        .leadership-member-card .member-name{color:#990000;font-size:20px;font-weight:700}
+        .leadership-member-card .member-title{color:#b30000;font-weight:600;font-size:15px}
+        .leadership-member-card .member-meta{color:#666;font-size:13px}
+        .leadership-member-card .member-bio{color:#444;font-size:14px;margin-top:4px;line-height:1.6}
         @media (max-width:1024px){.admin-panel{grid-template-columns:1fr 1fr}.admin-card.full-width{grid-column:auto}.header h1{font-size:72px;letter-spacing:12px}}
         @media (max-width:768px){.admin-panel{grid-template-columns:1fr}.header h1{font-size:52px;letter-spacing:8px}.header{padding:20px 0 16px}.nav a{padding:10px 12px;font-size:14px}.detail-container{padding:24px 20px}.admin-card{padding:20px}.modal-box{padding:30px 20px}.nav .user-info{font-size:12px;padding:0 6px}.profile-container{padding:20px}}
         @media (max-width:480px){.header h1{font-size:36px;letter-spacing:6px}.nav a{padding:8px 8px;font-size:13px}.main-wrapper{padding:0 12px;margin:16px auto}.post-item h3{font-size:18px}.modal-box .tabs button{font-size:14px;padding:8px 0}.admin-card .admin-list-item{flex-wrap:wrap}.admin-card .admin-list-item .actions{margin-top:4px}.file-preview .preview-item{width:60px;height:60px}.profile-container .btn-group{flex-direction:column}.interaction-bar{gap:12px}}
@@ -322,20 +332,27 @@
         </div>
     </div>
 
-    <!-- 编辑领导班子成员模态框 -->
+    <!-- 编辑领导班子成员模态框 (完整版) -->
     <div class="modal-overlay" id="editLeadershipModal">
-        <div class="modal-box" style="max-width:500px;">
+        <div class="modal-box">
             <button class="close-modal" onclick="closeEditLeadershipModal()">&times;</button>
-            <h2>编辑成员</h2>
-            <form id="editLeadershipForm">
+            <h2 id="editLeadershipModalTitle">添加领导成员</h2>
+            <form id="editLeadershipForm" onsubmit="saveLeadershipMember(event)">
                 <input type="hidden" id="editLeadershipIndex">
                 <label>姓名</label>
                 <input type="text" id="editLeadershipName" required>
-                <label>职务</label>
-                <input type="text" id="editLeadershipTitleInput" required>
-                <label>描述</label>
-                <textarea id="editLeadershipDesc" rows="3" style="width:100%; padding:10px 14px; border:2px solid #dce3ed; border-radius:8px; font-size:15px; font-family:inherit; resize:vertical;"></textarea>
-                <button type="submit" class="submit-btn">保存修改</button>
+                <label>现任职务</label>
+                <input type="text" id="editLeadershipTitle" required>
+                <label>加入组织时间</label>
+                <input type="text" id="editLeadershipJoinDate" placeholder="例如：2020年5月">
+                <label>个人简介</label>
+                <textarea id="editLeadershipBio" rows="3" placeholder="个人简介"></textarea>
+                <label>工作经历</label>
+                <textarea id="editLeadershipExperience" rows="4" placeholder="工作经历，每行一项"></textarea>
+                <label>上传照片</label>
+                <input type="file" id="editLeadershipPhoto" accept="image/*" onchange="previewLeadershipPhoto(event)">
+                <div class="leadership-photo-preview" id="editLeadershipPhotoPreview"></div>
+                <button type="submit" class="submit-btn">保存成员</button>
                 <div class="error-msg" id="editLeadershipError"></div>
             </form>
         </div>
@@ -492,6 +509,12 @@
                     <h3><i class="fas fa-check-double"></i> 审核投稿</h3>
                     <div class="admin-list" id="adminReviewList"></div>
                 </div>
+                <!-- 领导班子管理 -->
+                <div class="admin-card">
+                    <h3><i class="fas fa-users"></i> 领导班子管理</h3>
+                    <button class="btn-admin" onclick="openAddLeadershipModal()" style="margin-bottom:12px;"><i class="fas fa-plus"></i> 添加成员</button>
+                    <div class="admin-list" id="adminLeadershipList"></div>
+                </div>
                 <!-- 删除审核 -->
                 <div class="admin-card" id="deleteReviewCard" style="display:none;">
                     <h3><i class="fas fa-trash-alt"></i> 删除审核</h3>
@@ -579,7 +602,7 @@
         var SUPABASE_ANON_KEY = 'sb_publishable_RschSsu3ctATjS7bD5AkSQ_qP-mZ7cE';
         var supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // 独立表名（人民共产中央组织部专用，与宣传部完全隔离）
+        // 独立表名（人民共产中央组织部专用）
         var TABLE_USERS = 'zzb_users';
         var TABLE_CONFIG = 'zzb_config';
         var TABLE_POSTS = 'zzb_posts';
@@ -816,6 +839,7 @@
                             renderAdminPostList();
                             renderAdminUserList();
                             updateUserCount();
+                            renderAdminLeadershipList();
                             var accountCard = document.getElementById('accountManagementCard');
                             if (await isSuperAdmin()) {
                                 accountCard.style.display = 'block';
@@ -2046,7 +2070,7 @@
         }
 
         // ================================================================
-        //  领导班子（使用 zzb_config）
+        //  领导班子管理（使用 zzb_config）
         // ================================================================
         async function getLeadership() {
             try {
@@ -2088,6 +2112,7 @@
             } catch (e) { return false; }
         }
 
+        // 渲染前台领导班子
         async function renderLeadership() {
             var container = document.getElementById('leadershipList');
             var members = await getLeadership();
@@ -2095,18 +2120,170 @@
                 container.innerHTML = '<div style="color:#999;padding:20px;">暂无成员</div>';
                 return;
             }
-            var html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;">';
-            members.forEach(function(m) {
+            var html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;">';
+            members.forEach(function(m, idx) {
+                var photoHtml = m.photo ? `<img src="${m.photo}" alt="${m.name}" class="member-photo">` : '';
                 html += `
-                    <div style="background:#f8f9fa;padding:20px;border-radius:12px;border-left:4px solid #b30000;">
-                        <h4 style="color:#990000;font-size:18px;">${escapeHtml(m.name)}</h4>
-                        <p style="color:#b30000;font-weight:600;font-size:14px;">${escapeHtml(m.title)}</p>
-                        <p style="color:#666;font-size:14px;margin-top:6px;">${escapeHtml(m.description || '')}</p>
+                    <div class="leadership-member-card">
+                        ${photoHtml}
+                        <div class="member-name">${escapeHtml(m.name)}</div>
+                        <div class="member-title">${escapeHtml(m.title || '')}</div>
+                        ${m.joinDate ? `<div class="member-meta"><i class="fas fa-clock"></i> 加入组织：${escapeHtml(m.joinDate)}</div>` : ''}
+                        ${m.experience ? `<div class="member-meta"><i class="fas fa-briefcase"></i> 经历：${escapeHtml(m.experience)}</div>` : ''}
+                        ${m.bio ? `<div class="member-bio">${escapeHtml(m.bio)}</div>` : ''}
                     </div>
                 `;
             });
             html += '</div>';
             container.innerHTML = html;
+        }
+
+        // 渲染后台领导班子列表
+        async function renderAdminLeadershipList() {
+            var container = document.getElementById('adminLeadershipList');
+            if (!container) return;
+            if (!await window.isAdmin()) { container.innerHTML = '<div class="admin-empty">权限不足</div>'; return; }
+            var members = await getLeadership();
+            if (members.length === 0) {
+                container.innerHTML = '<div class="admin-empty">暂无成员</div>';
+                return;
+            }
+            var html = '';
+            members.forEach(function(m, idx) {
+                html += `
+                    <div class="admin-list-item">
+                        <span class="item-info">
+                            <strong>${escapeHtml(m.name)}</strong>
+                            <span style="color:#888;font-size:13px;">${escapeHtml(m.title || '')}</span>
+                            ${m.photo ? '<i class="fas fa-image" style="color:#17a2b8;"></i>' : ''}
+                        </span>
+                        <div class="actions">
+                            <button class="edit-btn" onclick="openEditLeadershipModal(${idx})" title="编辑"><i class="fas fa-edit"></i></button>
+                            <button class="del-btn" onclick="deleteLeadershipMember(${idx})" title="删除"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // 打开添加模态框
+        function openAddLeadershipModal() {
+            document.getElementById('editLeadershipModalTitle').textContent = '添加领导成员';
+            document.getElementById('editLeadershipIndex').value = '';
+            document.getElementById('editLeadershipName').value = '';
+            document.getElementById('editLeadershipTitle').value = '';
+            document.getElementById('editLeadershipJoinDate').value = '';
+            document.getElementById('editLeadershipBio').value = '';
+            document.getElementById('editLeadershipExperience').value = '';
+            document.getElementById('editLeadershipPhoto').value = '';
+            document.getElementById('editLeadershipPhotoPreview').innerHTML = '';
+            document.getElementById('editLeadershipError').style.display = 'none';
+            document.getElementById('editLeadershipModal').classList.add('show');
+        }
+
+        // 打开编辑模态框
+        function openEditLeadershipModal(index) {
+            getLeadership().then(function(members) {
+                var m = members[index];
+                if (!m) { showToast('成员不存在'); return; }
+                document.getElementById('editLeadershipModalTitle').textContent = '编辑领导成员';
+                document.getElementById('editLeadershipIndex').value = index;
+                document.getElementById('editLeadershipName').value = m.name || '';
+                document.getElementById('editLeadershipTitle').value = m.title || '';
+                document.getElementById('editLeadershipJoinDate').value = m.joinDate || '';
+                document.getElementById('editLeadershipBio').value = m.bio || '';
+                document.getElementById('editLeadershipExperience').value = m.experience || '';
+                document.getElementById('editLeadershipPhotoPreview').innerHTML = m.photo ?
+                    `<img src="${m.photo}" alt="预览">` : '';
+                document.getElementById('editLeadershipError').style.display = 'none';
+                document.getElementById('editLeadershipModal').classList.add('show');
+            });
+        }
+
+        function closeEditLeadershipModal() {
+            document.getElementById('editLeadershipModal').classList.remove('show');
+        }
+
+        // 照片预览
+        function previewLeadershipPhoto(event) {
+            var file = event.target.files[0];
+            if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('editLeadershipPhotoPreview').innerHTML =
+                    `<img src="${e.target.result}" alt="预览">`;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 保存成员
+        async function saveLeadershipMember(e) {
+            e.preventDefault();
+            var index = document.getElementById('editLeadershipIndex').value;
+            var name = document.getElementById('editLeadershipName').value.trim();
+            var title = document.getElementById('editLeadershipTitle').value.trim();
+            var joinDate = document.getElementById('editLeadershipJoinDate').value.trim();
+            var bio = document.getElementById('editLeadershipBio').value.trim();
+            var experience = document.getElementById('editLeadershipExperience').value.trim();
+            var photoFile = document.getElementById('editLeadershipPhoto').files[0];
+
+            if (!name) {
+                document.getElementById('editLeadershipError').textContent = '请填写姓名';
+                document.getElementById('editLeadershipError').style.display = 'block';
+                return;
+            }
+
+            var members = await getLeadership();
+            var photo = '';
+            if (photoFile) {
+                var reader = new FileReader();
+                photo = await new Promise(function(resolve) {
+                    reader.onload = function(e) { resolve(e.target.result); };
+                    reader.readAsDataURL(photoFile);
+                });
+            } else if (index !== '' && members[parseInt(index)] && members[parseInt(index)].photo) {
+                photo = members[parseInt(index)].photo;
+            }
+
+            var newMember = {
+                name: name,
+                title: title,
+                joinDate: joinDate,
+                bio: bio,
+                experience: experience,
+                photo: photo
+            };
+
+            if (index === '') {
+                members.push(newMember);
+            } else {
+                members[parseInt(index)] = newMember;
+            }
+
+            if (await updateLeadership(members)) {
+                showToast('✅ 成员已保存');
+                closeEditLeadershipModal();
+                renderLeadership();
+                renderAdminLeadershipList();
+            } else {
+                document.getElementById('editLeadershipError').textContent = '保存失败，请重试';
+                document.getElementById('editLeadershipError').style.display = 'block';
+            }
+        }
+
+        // 删除成员
+        async function deleteLeadershipMember(index) {
+            if (!confirm('确定删除该成员吗？')) return;
+            var members = await getLeadership();
+            members.splice(index, 1);
+            if (await updateLeadership(members)) {
+                showToast('已删除');
+                renderLeadership();
+                renderAdminLeadershipList();
+            } else {
+                showToast('删除失败');
+            }
         }
 
         // ================================================================
@@ -2453,6 +2630,7 @@
                     renderAdminReviewList();
                     renderAdminPostList();
                     renderAdminUserList();
+                    renderAdminLeadershipList();
                     updateUserCount();
                     if (window.isSuperAdmin) {
                         renderDeleteRequests();
@@ -2610,6 +2788,7 @@
                 renderAdminReviewList();
                 renderAdminPostList();
                 renderAdminUserList();
+                renderAdminLeadershipList();
                 updateUserCount();
                 loadNotice().then(function(notice) {
                     document.getElementById('noticeInput').value = notice || '';
@@ -2934,6 +3113,13 @@
         window.approveUnmuteRequest = approveUnmuteRequest;
         window.rejectUnmuteRequest = rejectUnmuteRequest;
         window.renderLeadership = renderLeadership;
+        window.renderAdminLeadershipList = renderAdminLeadershipList;
+        window.openAddLeadershipModal = openAddLeadershipModal;
+        window.openEditLeadershipModal = openEditLeadershipModal;
+        window.closeEditLeadershipModal = closeEditLeadershipModal;
+        window.saveLeadershipMember = saveLeadershipMember;
+        window.deleteLeadershipMember = deleteLeadershipMember;
+        window.previewLeadershipPhoto = previewLeadershipPhoto;
         window.checkUserMuted = checkUserMuted;
         window.isSuperAdmin = isSuperAdmin;
         window.isAdmin = isAdmin;
