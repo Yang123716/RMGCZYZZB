@@ -579,11 +579,11 @@
         var SUPABASE_ANON_KEY = 'sb_publishable_RschSsu3ctATjS7bD5AkSQ_qP-mZ7cE';
         var supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // 独立表名
-        var TABLE_USERS = 'xcb_users';
-        var TABLE_CONFIG = 'xcb_config';
-        var TABLE_POSTS = 'xcb_posts';
-        var TABLE_COMMENTS = 'xcb_comments';
+        // 独立表名（人民共产中央组织部专用，与宣传部完全隔离）
+        var TABLE_USERS = 'zzb_users';
+        var TABLE_CONFIG = 'zzb_config';
+        var TABLE_POSTS = 'zzb_posts';
+        var TABLE_COMMENTS = 'zzb_comments';
 
         // ================================================================
         //  工具函数
@@ -607,7 +607,7 @@
         }
 
         // ================================================================
-        //  用户管理（独立表）
+        //  用户管理（独立表 zzb_users）
         // ================================================================
         var currentUser = null;
 
@@ -2046,7 +2046,7 @@
         }
 
         // ================================================================
-        //  领导班子（使用 xcb_config）
+        //  领导班子（使用 zzb_config）
         // ================================================================
         async function getLeadership() {
             try {
