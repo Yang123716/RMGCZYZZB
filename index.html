@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>人民共产中央组织部</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-    </script>
+    <title>人民共产中央组织部 · 组织支部</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
     <style>
-        /* ===== 完整样式 ===== */
+        /* ===== 完整样式（与原代码一致 + 新增支部样式） ===== */
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;background:#f5f5f5;color:#1e1e1e;line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
         a{text-decoration:none;color:inherit}
@@ -230,9 +229,41 @@
         .leadership-member-card .member-title{color:#b30000;font-weight:600;font-size:15px}
         .leadership-member-card .member-meta{color:#666;font-size:13px}
         .leadership-member-card .member-bio{color:#444;font-size:14px;margin-top:4px;line-height:1.6}
+
+        /* ===== 新增：组织支部样式 ===== */
+        .branch-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:12px}
+        .branch-card{background:#fff;border-radius:10px;border:1px solid #e8e8e8;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.04);transition:box-shadow 0.2s;cursor:pointer;border-left:4px solid #b30000}
+        .branch-card:hover{box-shadow:0 6px 16px rgba(0,0,0,0.08)}
+        .branch-card h4{color:#990000;font-size:18px;margin-bottom:4px}
+        .branch-card .branch-meta{font-size:13px;color:#888;margin-bottom:4px}
+        .branch-card .branch-desc{font-size:14px;color:#555;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+        .branch-card .branch-actions{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+        .branch-card .branch-actions button{background:none;border:none;cursor:pointer;font-size:13px;padding:4px 10px;border-radius:6px;transition:all 0.2s}
+        .branch-card .branch-actions .edit-btn{color:#17a2b8;border:1px solid #17a2b8}
+        .branch-card .branch-actions .edit-btn:hover{background:#e2f0f5}
+        .branch-card .branch-actions .del-btn{color:#dc3545;border:1px solid #dc3545}
+        .branch-card .branch-actions .del-btn:hover{background:#f8d7da}
+        .branch-card .branch-actions .view-btn{color:#b30000;border:1px solid #b30000}
+        .branch-card .branch-actions .view-btn:hover{background:#ffe6e6}
+        .branch-detail h3{color:#990000;font-size:24px;margin-bottom:8px}
+        .branch-detail .sub{color:#666;margin-bottom:16px}
+        .branch-member-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
+        .branch-member-table th{background:#f0f0f0;color:#333;font-weight:600;padding:8px 10px;text-align:left;border-bottom:2px solid #ddd}
+        .branch-member-table td{padding:8px 10px;border-bottom:1px solid #eee}
+        .branch-member-table tr:hover{background:#fafafa}
+        .branch-member-table .member-actions button{background:none;border:none;cursor:pointer;font-size:13px;padding:2px 6px;border-radius:4px;transition:background 0.2s}
+        .branch-member-table .member-actions .edit-btn{color:#17a2b8}
+        .branch-member-table .member-actions .edit-btn:hover{background:#e2f0f5}
+        .branch-member-table .member-actions .del-btn{color:#dc3545}
+        .branch-member-table .member-actions .del-btn:hover{background:#f8d7da}
+        .branch-form-row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+        .branch-form-row .form-group{flex:1;min-width:140px}
+        .branch-toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+        .branch-toolbar .btn-admin{margin-top:0}
+        .branch-empty{color:#999;text-align:center;padding:30px 0;font-size:15px}
         @media (max-width:1024px){.admin-panel{grid-template-columns:1fr 1fr}.admin-card.full-width{grid-column:auto}.header h1{font-size:72px;letter-spacing:12px}}
-        @media (max-width:768px){.admin-panel{grid-template-columns:1fr}.header h1{font-size:52px;letter-spacing:8px}.header{padding:20px 0 16px}.nav a{padding:10px 12px;font-size:14px}.detail-container{padding:24px 20px}.admin-card{padding:20px}.modal-box{padding:30px 20px}.nav .user-info{font-size:12px;padding:0 6px}.profile-container{padding:20px}}
-        @media (max-width:480px){.header h1{font-size:36px;letter-spacing:6px}.nav a{padding:8px 8px;font-size:13px}.main-wrapper{padding:0 12px;margin:16px auto}.post-item h3{font-size:18px}.modal-box .tabs button{font-size:14px;padding:8px 0}.admin-card .admin-list-item{flex-wrap:wrap}.admin-card .admin-list-item .actions{margin-top:4px}.file-preview .preview-item{width:60px;height:60px}.profile-container .btn-group{flex-direction:column}.interaction-bar{gap:12px}}
+        @media (max-width:768px){.admin-panel{grid-template-columns:1fr}.header h1{font-size:52px;letter-spacing:8px}.header{padding:20px 0 16px}.nav a{padding:10px 12px;font-size:14px}.detail-container{padding:24px 20px}.admin-card{padding:20px}.modal-box{padding:30px 20px}.nav .user-info{font-size:12px;padding:0 6px}.profile-container{padding:20px}.branch-list{grid-template-columns:1fr}}
+        @media (max-width:480px){.header h1{font-size:36px;letter-spacing:6px}.nav a{padding:8px 8px;font-size:13px}.main-wrapper{padding:0 12px;margin:16px auto}.post-item h3{font-size:18px}.modal-box .tabs button{font-size:14px;padding:8px 0}.admin-card .admin-list-item{flex-wrap:wrap}.admin-card .admin-list-item .actions{margin-top:4px}.file-preview .preview-item{width:60px;height:60px}.profile-container .btn-group{flex-direction:column}.interaction-bar{gap:12px}.branch-member-table{font-size:12px}.branch-member-table th,.branch-member-table td{padding:6px 6px}}
         .msg-modal .msg-box::-webkit-scrollbar{width:6px}
         .msg-modal .msg-box::-webkit-scrollbar-track{background:#f0f2f5;border-radius:10px}
         .msg-modal .msg-box::-webkit-scrollbar-thumb{background:#b0c0d0;border-radius:10px}
@@ -332,7 +363,7 @@
         </div>
     </div>
 
-    <!-- 编辑领导班子成员模态框 (完整版) -->
+    <!-- 编辑领导班子成员模态框 -->
     <div class="modal-overlay" id="editLeadershipModal">
         <div class="modal-box">
             <button class="close-modal" onclick="closeEditLeadershipModal()">&times;</button>
@@ -358,6 +389,51 @@
         </div>
     </div>
 
+    <!-- 新增：组织支部 — 支部编辑模态框 -->
+    <div class="modal-overlay" id="branchEditModal">
+        <div class="modal-box" style="max-width:600px;">
+            <button class="close-modal" onclick="closeBranchEditModal()">&times;</button>
+            <h2 id="branchEditTitle">创建支部</h2>
+            <form id="branchEditForm" onsubmit="saveBranch(event)">
+                <input type="hidden" id="branchEditIndex">
+                <label>支部名称</label>
+                <input type="text" id="branchName" required placeholder="例如：第一支部">
+                <label>支部简介</label>
+                <textarea id="branchDesc" rows="2" placeholder="支部简介"></textarea>
+                <label>负责人</label>
+                <input type="text" id="branchLeader" placeholder="负责人姓名">
+                <div style="display:flex; gap:12px; margin-top:16px; justify-content:flex-end;">
+                    <button type="button" class="btn-admin btn-sm" onclick="closeBranchEditModal()" style="background:#6c757d;">取消</button>
+                    <button type="submit" class="btn-admin btn-sm">保存</button>
+                </div>
+                <div class="error-msg" id="branchEditError"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 新增：组织支部 — 成员编辑模态框 -->
+    <div class="modal-overlay" id="branchMemberModal">
+        <div class="modal-box" style="max-width:500px;">
+            <button class="close-modal" onclick="closeBranchMemberModal()">&times;</button>
+            <h2 id="branchMemberTitle">添加成员</h2>
+            <form id="branchMemberForm" onsubmit="saveBranchMember(event)">
+                <input type="hidden" id="branchMemberBranchIndex">
+                <input type="hidden" id="branchMemberIndex">
+                <label>姓名</label>
+                <input type="text" id="branchMemberName" required>
+                <label>职务</label>
+                <input type="text" id="branchMemberPosition" placeholder="例如：支部书记、组织委员">
+                <label>备注</label>
+                <input type="text" id="branchMemberNote" placeholder="可选">
+                <div style="display:flex; gap:12px; margin-top:16px; justify-content:flex-end;">
+                    <button type="button" class="btn-admin btn-sm" onclick="closeBranchMemberModal()" style="background:#6c757d;">取消</button>
+                    <button type="submit" class="btn-admin btn-sm">保存</button>
+                </div>
+                <div class="error-msg" id="branchMemberError"></div>
+            </form>
+        </div>
+    </div>
+
     <!-- 头部 -->
     <header class="header">
         <div class="header-content">
@@ -371,6 +447,8 @@
             <a href="#" class="active-page" data-page="home">首页</a>
             <a href="#" data-page="info">信息公开</a>
             <a href="#" data-page="leadership">领导班子</a>
+            <!-- 新增：组织支部导航 -->
+            <a href="#" data-page="branch">组织支部</a>
             <a href="#" id="adminNavLink" class="admin-link" data-page="admin">
                 <i class="fas fa-user-shield"></i> <span id="adminLinkText">管理后台</span>
             </a>
@@ -410,6 +488,22 @@
             <div class="card">
                 <h2 style="color:#990000; margin-bottom:12px;">领导班子</h2>
                 <div id="leadershipList"></div>
+            </div>
+        </div>
+        <!-- 新增：组织支部页面 -->
+        <div id="page-branch" class="page">
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:8px;">
+                    <h2 style="color:#990000; margin:0;"><i class="fas fa-sitemap"></i> 组织支部</h2>
+                    <button id="addBranchBtn" class="btn-admin" style="display:none;" onclick="openAddBranchModal()"><i class="fas fa-plus"></i> 创建支部</button>
+                </div>
+                <div id="branchListContainer"></div>
+            </div>
+            <div id="branchDetailContainer" style="display:none;">
+                <div class="card">
+                    <div class="back-link" onclick="closeBranchDetail()" style="margin-bottom:12px; color:#b30000; font-weight:600; cursor:pointer;"><i class="fas fa-arrow-left"></i> 返回支部列表</div>
+                    <div id="branchDetailContent"></div>
+                </div>
             </div>
         </div>
         <!-- 详情页 -->
@@ -860,6 +954,7 @@
                         }
                     }
                     if (document.getElementById('page-leadership').classList.contains('active')) renderLeadership();
+                    if (document.getElementById('page-branch').classList.contains('active')) renderBranchList();
                     if (document.getElementById('page-profile').classList.contains('active')) renderProfile();
                     if (document.getElementById('page-detail').classList.contains('active') && currentPostId) {
                         renderDetail(currentPostId);
@@ -2619,9 +2714,17 @@
                     if (accountCard) accountCard.style.display = 'none';
                 }
                 updateCommentForm();
+                // 组织支部管理按钮
+                var addBranchBtn = document.getElementById('addBranchBtn');
+                if (addBranchBtn) {
+                    isAdmin().then(function(admin) {
+                        addBranchBtn.style.display = admin ? 'inline-block' : 'none';
+                    });
+                }
                 if (document.getElementById('page-home').classList.contains('active')) renderPostList('homePostList', true);
                 if (document.getElementById('page-info').classList.contains('active')) renderPostList('infoPostList', true);
                 if (document.getElementById('page-leadership').classList.contains('active')) renderLeadership();
+                if (document.getElementById('page-branch').classList.contains('active')) renderBranchList();
                 if (document.getElementById('page-detail').classList.contains('active') && currentPostId) {
                     renderDetail(currentPostId);
                     renderComments(currentPostId);
@@ -2745,6 +2848,7 @@
             home: document.getElementById('page-home'),
             info: document.getElementById('page-info'),
             leadership: document.getElementById('page-leadership'),
+            branch: document.getElementById('page-branch'),
             detail: document.getElementById('page-detail'),
             profile: document.getElementById('page-profile'),
             admin: document.getElementById('page-admin')
@@ -2783,6 +2887,7 @@
             if (pageId === 'home') renderPostList('homePostList', true);
             if (pageId === 'info') renderPostList('infoPostList', true);
             if (pageId === 'leadership') renderLeadership();
+            if (pageId === 'branch') renderBranchList();
             if (pageId === 'profile') renderProfile();
             if (pageId === 'admin') {
                 renderAdminReviewList();
@@ -2844,6 +2949,316 @@
         });
 
         // ================================================================
+        //  新增：组织支部管理（使用 zzb_config 的 'branches' 键）
+        // ================================================================
+        var branchListData = []; // 前端缓存，与 Supabase 同步
+
+        async function getBranches() {
+            try {
+                var result = await supabaseClient
+                    .from(TABLE_CONFIG)
+                    .select('value')
+                    .eq('key', 'branches')
+                    .maybeSingle();
+                if (result.error || !result.data) return [];
+                var data = result.data.value;
+                if (typeof data === 'string') {
+                    try { return JSON.parse(data); } catch (e) { return []; }
+                }
+                return Array.isArray(data) ? data : [];
+            } catch (e) { return []; }
+        }
+
+        async function saveBranches(branches) {
+            try {
+                var result = await supabaseClient
+                    .from(TABLE_CONFIG)
+                    .select('*')
+                    .eq('key', 'branches')
+                    .maybeSingle();
+                var updateResult;
+                if (result.data) {
+                    updateResult = await supabaseClient
+                        .from(TABLE_CONFIG)
+                        .update({ value: JSON.stringify(branches) })
+                        .eq('key', 'branches');
+                } else {
+                    updateResult = await supabaseClient
+                        .from(TABLE_CONFIG)
+                        .insert([{ key: 'branches', value: JSON.stringify(branches) }]);
+                }
+                if (updateResult.error) return false;
+                branchListData = branches;
+                return true;
+            } catch (e) { return false; }
+        }
+
+        // 渲染支部列表（前台页面）
+        async function renderBranchList() {
+            var container = document.getElementById('branchListContainer');
+            var detailContainer = document.getElementById('branchDetailContainer');
+            if (!container) return;
+            detailContainer.style.display = 'none';
+            container.style.display = 'block';
+            var branches = await getBranches();
+            branchListData = branches;
+            if (branches.length === 0) {
+                container.innerHTML = '<div class="branch-empty">暂无支部</div>';
+                return;
+            }
+            var html = '<div class="branch-list">';
+            for (var i = 0; i < branches.length; i++) {
+                var b = branches[i];
+                html += `
+                    <div class="branch-card" data-branch-index="${i}" onclick="openBranchDetail(${i})">
+                        <h4>${escapeHtml(b.name || '未命名支部')}</h4>
+                        <div class="branch-meta"><i class="fas fa-user-tie"></i> 负责人：${escapeHtml(b.leader || '未指定')}</div>
+                        <div class="branch-meta"><i class="fas fa-users"></i> 成员 ${(b.members || []).length} 人</div>
+                        <div class="branch-desc">${escapeHtml(b.desc || '暂无简介')}</div>
+                    </div>
+                `;
+            }
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // 打开支部详情
+        async function openBranchDetail(index) {
+            var branches = await getBranches();
+            var b = branches[index];
+            if (!b) { showToast('支部不存在'); return; }
+            branchListData = branches;
+            var listContainer = document.getElementById('branchListContainer');
+            var detailContainer = document.getElementById('branchDetailContainer');
+            listContainer.style.display = 'none';
+            detailContainer.style.display = 'block';
+            var isAdminUser = await window.isAdmin();
+            var members = b.members || [];
+            var memberRows = '';
+            if (members.length === 0) {
+                memberRows = '<tr><td colspan="4" style="text-align:center;color:#999;padding:16px;">暂无成员</td></tr>';
+            } else {
+                for (var j = 0; j < members.length; j++) {
+                    var m = members[j];
+                    memberRows += `
+                        <tr>
+                            <td>${escapeHtml(m.name || '')}</td>
+                            <td>${escapeHtml(m.position || '')}</td>
+                            <td>${escapeHtml(m.note || '')}</td>
+                            <td class="member-actions">
+                                ${isAdminUser ? `
+                                    <button class="edit-btn" onclick="openEditBranchMemberModal(${index}, ${j})" title="编辑"><i class="fas fa-edit"></i></button>
+                                    <button class="del-btn" onclick="deleteBranchMember(${index}, ${j})" title="删除"><i class="fas fa-trash-alt"></i></button>
+                                ` : '—'}
+                            </td>
+                        </tr>
+                    `;
+                }
+            }
+            document.getElementById('branchDetailContent').innerHTML = `
+                <h3>${escapeHtml(b.name || '未命名支部')}</h3>
+                <div class="sub">${escapeHtml(b.desc || '暂无简介')}</div>
+                <div style="margin-bottom:12px;">
+                    <strong>负责人：</strong>${escapeHtml(b.leader || '未指定')}
+                    ${isAdminUser ? `<button class="btn-admin btn-sm" style="margin-left:16px;" onclick="openEditBranchModal(${index})"><i class="fas fa-edit"></i> 编辑支部</button>` : ''}
+                    ${isAdminUser ? `<button class="btn-admin btn-sm" style="margin-left:8px;background:#dc3545;" onclick="deleteBranch(${index})"><i class="fas fa-trash-alt"></i> 删除支部</button>` : ''}
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+                    <h4 style="color:#990000; margin:0;"><i class="fas fa-user-friends"></i> 成员列表</h4>
+                    ${isAdminUser ? `<button class="btn-admin btn-sm" onclick="openAddBranchMemberModal(${index})"><i class="fas fa-plus"></i> 添加成员</button>` : ''}
+                </div>
+                <table class="branch-member-table">
+                    <thead><tr><th>姓名</th><th>职务</th><th>备注</th><th>操作</th></tr></thead>
+                    <tbody>${memberRows}</tbody>
+                </table>
+            `;
+        }
+
+        function closeBranchDetail() {
+            document.getElementById('branchDetailContainer').style.display = 'none';
+            document.getElementById('branchListContainer').style.display = 'block';
+            renderBranchList();
+        }
+
+        // ===== 支部编辑 =====
+        function openAddBranchModal() {
+            if (!currentUser) { showToast('请先登录'); return; }
+            window.isAdmin().then(function(admin) {
+                if (!admin) { showToast('权限不足'); return; }
+                document.getElementById('branchEditTitle').textContent = '创建支部';
+                document.getElementById('branchEditIndex').value = '';
+                document.getElementById('branchName').value = '';
+                document.getElementById('branchDesc').value = '';
+                document.getElementById('branchLeader').value = '';
+                document.getElementById('branchEditError').style.display = 'none';
+                document.getElementById('branchEditModal').classList.add('show');
+            });
+        }
+
+        function openEditBranchModal(index) {
+            if (!currentUser) { showToast('请先登录'); return; }
+            window.isAdmin().then(async function(admin) {
+                if (!admin) { showToast('权限不足'); return; }
+                var branches = await getBranches();
+                var b = branches[index];
+                if (!b) { showToast('支部不存在'); return; }
+                document.getElementById('branchEditTitle').textContent = '编辑支部';
+                document.getElementById('branchEditIndex').value = index;
+                document.getElementById('branchName').value = b.name || '';
+                document.getElementById('branchDesc').value = b.desc || '';
+                document.getElementById('branchLeader').value = b.leader || '';
+                document.getElementById('branchEditError').style.display = 'none';
+                document.getElementById('branchEditModal').classList.add('show');
+            });
+        }
+
+        function closeBranchEditModal() {
+            document.getElementById('branchEditModal').classList.remove('show');
+        }
+
+        async function saveBranch(e) {
+            e.preventDefault();
+            if (!await window.isAdmin()) { showToast('权限不足'); return; }
+            var index = document.getElementById('branchEditIndex').value;
+            var name = document.getElementById('branchName').value.trim();
+            var desc = document.getElementById('branchDesc').value.trim();
+            var leader = document.getElementById('branchLeader').value.trim();
+            if (!name) {
+                document.getElementById('branchEditError').textContent = '请填写支部名称';
+                document.getElementById('branchEditError').style.display = 'block';
+                return;
+            }
+            var branches = await getBranches();
+            if (index === '') {
+                branches.push({ name: name, desc: desc, leader: leader, members: [] });
+            } else {
+                var old = branches[parseInt(index)] || {};
+                branches[parseInt(index)] = {
+                    name: name,
+                    desc: desc,
+                    leader: leader,
+                    members: old.members || []
+                };
+            }
+            if (await saveBranches(branches)) {
+                showToast('✅ 支部已保存');
+                closeBranchEditModal();
+                if (document.getElementById('branchDetailContainer').style.display === 'block') {
+                    // 如果当前在详情页，刷新详情
+                    var idx = index === '' ? branches.length - 1 : parseInt(index);
+                    openBranchDetail(idx);
+                } else {
+                    renderBranchList();
+                }
+            } else {
+                document.getElementById('branchEditError').textContent = '保存失败，请重试';
+                document.getElementById('branchEditError').style.display = 'block';
+            }
+        }
+
+        async function deleteBranch(index) {
+            if (!await window.isAdmin()) { showToast('权限不足'); return; }
+            if (!confirm('确定删除该支部及其所有成员吗？')) return;
+            var branches = await getBranches();
+            branches.splice(index, 1);
+            if (await saveBranches(branches)) {
+                showToast('已删除支部');
+                closeBranchDetail();
+                renderBranchList();
+            } else {
+                showToast('删除失败');
+            }
+        }
+
+        // ===== 支部成员编辑 =====
+        function openAddBranchMemberModal(branchIndex) {
+            if (!currentUser) { showToast('请先登录'); return; }
+            window.isAdmin().then(function(admin) {
+                if (!admin) { showToast('权限不足'); return; }
+                document.getElementById('branchMemberTitle').textContent = '添加成员';
+                document.getElementById('branchMemberBranchIndex').value = branchIndex;
+                document.getElementById('branchMemberIndex').value = '';
+                document.getElementById('branchMemberName').value = '';
+                document.getElementById('branchMemberPosition').value = '';
+                document.getElementById('branchMemberNote').value = '';
+                document.getElementById('branchMemberError').style.display = 'none';
+                document.getElementById('branchMemberModal').classList.add('show');
+            });
+        }
+
+        function openEditBranchMemberModal(branchIndex, memberIndex) {
+            if (!currentUser) { showToast('请先登录'); return; }
+            window.isAdmin().then(async function(admin) {
+                if (!admin) { showToast('权限不足'); return; }
+                var branches = await getBranches();
+                var b = branches[branchIndex];
+                if (!b || !b.members || !b.members[memberIndex]) { showToast('成员不存在'); return; }
+                var m = b.members[memberIndex];
+                document.getElementById('branchMemberTitle').textContent = '编辑成员';
+                document.getElementById('branchMemberBranchIndex').value = branchIndex;
+                document.getElementById('branchMemberIndex').value = memberIndex;
+                document.getElementById('branchMemberName').value = m.name || '';
+                document.getElementById('branchMemberPosition').value = m.position || '';
+                document.getElementById('branchMemberNote').value = m.note || '';
+                document.getElementById('branchMemberError').style.display = 'none';
+                document.getElementById('branchMemberModal').classList.add('show');
+            });
+        }
+
+        function closeBranchMemberModal() {
+            document.getElementById('branchMemberModal').classList.remove('show');
+        }
+
+        async function saveBranchMember(e) {
+            e.preventDefault();
+            if (!await window.isAdmin()) { showToast('权限不足'); return; }
+            var branchIndex = parseInt(document.getElementById('branchMemberBranchIndex').value);
+            var memberIndex = document.getElementById('branchMemberIndex').value;
+            var name = document.getElementById('branchMemberName').value.trim();
+            var position = document.getElementById('branchMemberPosition').value.trim();
+            var note = document.getElementById('branchMemberNote').value.trim();
+            if (!name) {
+                document.getElementById('branchMemberError').textContent = '请填写姓名';
+                document.getElementById('branchMemberError').style.display = 'block';
+                return;
+            }
+            var branches = await getBranches();
+            var b = branches[branchIndex];
+            if (!b) { showToast('支部不存在'); return; }
+            if (!b.members) b.members = [];
+            var newMember = { name: name, position: position, note: note };
+            if (memberIndex === '') {
+                b.members.push(newMember);
+            } else {
+                b.members[parseInt(memberIndex)] = newMember;
+            }
+            if (await saveBranches(branches)) {
+                showToast('✅ 成员已保存');
+                closeBranchMemberModal();
+                // 刷新详情
+                openBranchDetail(branchIndex);
+            } else {
+                document.getElementById('branchMemberError').textContent = '保存失败，请重试';
+                document.getElementById('branchMemberError').style.display = 'block';
+            }
+        }
+
+        async function deleteBranchMember(branchIndex, memberIndex) {
+            if (!await window.isAdmin()) { showToast('权限不足'); return; }
+            if (!confirm('确定删除该成员吗？')) return;
+            var branches = await getBranches();
+            var b = branches[branchIndex];
+            if (!b || !b.members) return;
+            b.members.splice(memberIndex, 1);
+            if (await saveBranches(branches)) {
+                showToast('已删除成员');
+                openBranchDetail(branchIndex);
+            } else {
+                showToast('删除失败');
+            }
+        }
+
+        // ================================================================
         //  初始化
         // ================================================================
         document.addEventListener('DOMContentLoaded', function() {
@@ -2859,7 +3274,7 @@
                 }
             }
 
-            // ----- 安全绑定所有事件（使用 safeAddEventListener） -----
+            // ----- 安全绑定所有事件 -----
             safeAddEventListener('closeMsgModal', 'click', closeMsgModal);
             safeAddEventListener('closeLoginModal', 'click', closeLoginModal);
             loginModal.addEventListener('click', function(e) { if (e.target === this) closeLoginModal(); });
@@ -3046,6 +3461,7 @@
                     updateUIForUser(); }
                 var notice = await loadNotice();
                 document.getElementById('noticeInput').value = notice || '';
+                // 初始化 leadership 和 branches 配置
                 var leadershipResult = await supabaseClient
                     .from(TABLE_CONFIG)
                     .select('*')
@@ -3056,6 +3472,16 @@
                         .from(TABLE_CONFIG)
                         .insert([{ key: 'leadership', value: '[]' }]);
                 }
+                var branchResult = await supabaseClient
+                    .from(TABLE_CONFIG)
+                    .select('*')
+                    .eq('key', 'branches')
+                    .maybeSingle();
+                if (!branchResult.data) {
+                    await supabaseClient
+                        .from(TABLE_CONFIG)
+                        .insert([{ key: 'branches', value: '[]' }]);
+                }
                 setTimeout(adjustNoticeBarPosition, 300);
                 handleHash();
             });
@@ -3065,7 +3491,7 @@
             window.addEventListener('resize', adjustNoticeBarPosition);
             window.addEventListener('hashchange', handleHash);
 
-            console.log('✅ 人民共产中央组织部已启动（独立表）');
+            console.log('✅ 人民共产中央组织部已启动（独立表 + 组织支部）');
             console.log('📌 超级管理员：杨振浩 / Yzh061110');
             console.log('✅ 完全独立于人民共产网数据表');
         });
@@ -3143,6 +3569,20 @@
         window.renderDetail = renderDetail;
         window.toggleLike = toggleLike;
         window.safeAddEventListener = safeAddEventListener;
+        // 组织支部相关
+        window.renderBranchList = renderBranchList;
+        window.openBranchDetail = openBranchDetail;
+        window.closeBranchDetail = closeBranchDetail;
+        window.openAddBranchModal = openAddBranchModal;
+        window.openEditBranchModal = openEditBranchModal;
+        window.closeBranchEditModal = closeBranchEditModal;
+        window.saveBranch = saveBranch;
+        window.deleteBranch = deleteBranch;
+        window.openAddBranchMemberModal = openAddBranchMemberModal;
+        window.openEditBranchMemberModal = openEditBranchMemberModal;
+        window.closeBranchMemberModal = closeBranchMemberModal;
+        window.saveBranchMember = saveBranchMember;
+        window.deleteBranchMember = deleteBranchMember;
     </script>
 </body>
 </html>
